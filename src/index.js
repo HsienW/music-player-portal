@@ -1,18 +1,70 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { singleAppGlobalState } from '../../common/state/single-app-global-state';
+import { globalActiveListener } from '../../common/listener/global-active-listener';
 import { PortalRootDom } from './root/root';
-import '../public-path';
+import './public-path';
 
 function renderPortalRoot(props) {
-    const { container, routerBase, getGlobalState, setGlobalState } = props;
+    const {container, routerBase, setGlobalState, getGlobalState, onStateChange} = props;
     ReactDOM.render(
-        <PortalRootDom routerBase={routerBase} getGlobalState={getGlobalState} setGlobalState={setGlobalState} />,
+        <PortalRootDom
+            routerBase={routerBase}
+            setGlobalState={setGlobalState}
+            getGlobalState={getGlobalState}
+            onStateChange={onStateChange}
+        />,
+        container ? container.querySelector('#portal-root') : document.querySelector('#portal-root')
+    );
+}
+
+function renderSinglePortalRoot(props) {
+    import ('../../common/containers/loading-spin/loading-spin');
+    import ('../../common/containers/side-bar/side-bar');
+    import ('../../common/containers/header-bar/header-bar');
+    import ('../../common/containers/player-bar/player-bar');
+    import ('./style/sub-app-portal-main.scss');
+
+    const {container, routerBase, setGlobalState, getGlobalState, onStateChange} = props;
+
+    ReactDOM.render(
+        <>
+            <div className="main-layout">
+                <div className="side-layout">
+                    <side-bar-container></side-bar-container>
+                </div>
+                <div className="header-layout">
+                    <header-bar-container></header-bar-container>
+                </div>
+                <div className="content-layout">
+                    <PortalRootDom
+                        routerBase={routerBase}
+                        setGlobalState={setGlobalState}
+                        getGlobalState={getGlobalState}
+                        onStateChange={onStateChange}
+                    />
+                </div>
+                <div className="footer-layout">
+                    <player-bar-container></player-bar-container>
+                </div>
+            </div>
+            <loading-spin-container></loading-spin-container>
+        </>,
         container ? container.querySelector('#portal-root') : document.querySelector('#portal-root')
     );
 }
 
 if (!window.__POWERED_BY_QIANKUN__) {
-    renderPortalRoot();
+    console.log('portal 我自己運行了');
+
+    const routerBase = '/sub-app-portal';
+    const { getGlobalState, setGlobalState } = singleAppGlobalState;
+    const props = { routerBase, getGlobalState, setGlobalState };
+
+    singleAppGlobalState.setGlobalState('init', 'portal 我自己運行了');
+    globalActiveListener.initAllAction();
+
+    renderSinglePortalRoot(props);
 }
 
 /**
