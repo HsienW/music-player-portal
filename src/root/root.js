@@ -7,8 +7,8 @@ const Login = () => {
     return <auth-container/>;
 };
 
-const PortalPage1 = () => {
-    return <h2>Portal Page 1</h2>;
+const Home = () => {
+    return <h2>Home</h2>;
 };
 
 const PortalPage2 = () => {
@@ -35,21 +35,21 @@ export const PortalRootDom = (props) => {
             <BrowserRouter>
                 <ul>
                     <li>
-                        <Link to={`${routerBase}/portal-page1`}>Portal Page1</Link>
+                        <Link to={`${routerBase}/home`}>Home</Link>
                     </li>
                     <li>
                         <Link to={`${routerBase}/portal-page2`}>Portal Page2</Link>
                     </li>
                     <li>
-                        <Link to={'/sub-app-react1'}>Go to React1</Link>
+                        <Link to={'/search'}>Go to Search</Link>
                     </li>
                 </ul>
                 <Switch>
                     <Route path={`${routerBase}/login`}>
                         <Login/>
                     </Route>
-                    <Route path={`${routerBase}/portal-page1`}>
-                        <PortalPage1/>
+                    <Route path={`${routerBase}/home`}>
+                        <Home/>
                     </Route>
                     <Route path={`${routerBase}/portal-page2`}>
                         <PortalPage2/>
