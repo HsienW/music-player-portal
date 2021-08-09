@@ -65,6 +65,7 @@ module.exports = merge(baseWebpackConfig, {
         port: '3001',
         compress: true,
         hot: true,
+        historyApiFallback: true,
         headers: {
             'Access-Control-Allow-Origin': '*'
         }
@@ -75,13 +76,14 @@ module.exports = merge(baseWebpackConfig, {
             filename: 'index.html'
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].css'
+            filename: `${packageName}-[name].css`
         }),
         new CompressionPlugin({
             test: /\.js(\?.*)?$/i
         }),
         new Dotenv({
-            path: isDev ? './.env.config.dev' : './.env.config.prod'
+            path: './.env.config.dev',
+            systemvars: true
         }),
         new HardSourceWebpackPlugin(),
         new MomentLocalesPlugin(),
