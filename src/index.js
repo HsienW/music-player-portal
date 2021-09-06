@@ -1,18 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { singleAppGlobalState } from '../../common/state/single-app-global-state';
-import { globalActiveListener } from '../../common/listener/global-active-listener';
-import { PortalRootDom } from './root/root';
+import {singleAppGlobalState} from '../../common/state/single-app-global-state';
+import {globalActiveListener} from '../../common/listener/global-active-listener';
+import {globalActiveMediator} from '../../common/mediator/global-active-mediator';
+import {observer, observerKey} from '../../common/observer';
+import {PortalRootDom} from './root/root';
 import './public-path';
 
 function renderPortalRoot(props) {
-    const {container, routerBase, setGlobalState, getGlobalState, onStateChange} = props;
+    const {container, routerBase, setGlobalState, getGlobalState, onStateChange, observer, observerKey} = props;
+    const authRedirectURL = `${routerBase}/home`;
+    sessionStorage.setItem('auth-redirect-url', JSON.stringify(authRedirectURL));
     ReactDOM.render(
         <PortalRootDom
             routerBase={routerBase}
             setGlobalState={setGlobalState}
             getGlobalState={getGlobalState}
             onStateChange={onStateChange}
+            observer={observer}
+            observerKey={observerKey}
         />,
         container ? container.querySelector('#portal-root') : document.querySelector('#portal-root')
     );
@@ -23,18 +29,20 @@ function renderSinglePortalRoot(props) {
     import ('../../common/containers/side-bar/side-bar');
     import ('../../common/containers/header-bar/header-bar');
     import ('../../common/containers/player-bar/player-bar');
-    import ('./style/sub-app-portal-main.scss');
+    import ('./root/root.scss');
 
-    const {container, routerBase, setGlobalState, getGlobalState, onStateChange} = props;
+    const {container, routerBase, setGlobalState, getGlobalState, onStateChange, observer, observerKey} = props;
 
     ReactDOM.render(
         <>
+            <auth-container/>
+            <loading-spin-container/>
             <div className="main-layout">
                 <div className="side-layout">
-                    <side-bar-container></side-bar-container>
+                    <side-bar-container/>
                 </div>
                 <div className="header-layout">
-                    <header-bar-container></header-bar-container>
+                    <header-bar-container/>
                 </div>
                 <div className="content-layout">
                     <PortalRootDom
@@ -42,13 +50,14 @@ function renderSinglePortalRoot(props) {
                         setGlobalState={setGlobalState}
                         getGlobalState={getGlobalState}
                         onStateChange={onStateChange}
+                        observer={observer}
+                        observerKey={observerKey}
                     />
                 </div>
                 <div className="footer-layout">
-                    <player-bar-container></player-bar-container>
+                    <player-bar-container/>
                 </div>
             </div>
-            <loading-spin-container></loading-spin-container>
         </>,
         container ? container.querySelector('#portal-root') : document.querySelector('#portal-root')
     );
@@ -57,12 +66,15 @@ function renderSinglePortalRoot(props) {
 if (!window.__POWERED_BY_QIANKUN__) {
     console.log('portal 我自己運行了');
 
-    const routerBase = '/sub-app-portal';
-    const { getGlobalState, setGlobalState } = singleAppGlobalState;
-    const props = { routerBase, getGlobalState, setGlobalState };
+    const routerBase = '/portal';
+    const authRedirectURL = `${routerBase}/home`;
+    const {getGlobalState, setGlobalState} = singleAppGlobalState;
+    const props = {routerBase, getGlobalState, setGlobalState, observer, observerKey};
 
+    sessionStorage.setItem('auth-redirect-url', JSON.stringify(authRedirectURL));
     singleAppGlobalState.setGlobalState('init', 'portal 我自己運行了');
     globalActiveListener.initAllAction();
+    globalActiveMediator.callAction('initGlobalMediatorSubscribe');
 
     renderSinglePortalRoot(props);
 }
