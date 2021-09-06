@@ -58,6 +58,6 @@ Thumbs.db
 
 ## ENV Files
 #.env
-#.env.config.dev
-#.env.config.prod
+.env.config.dev
+.env.config.prod
 
