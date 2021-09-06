@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import {Home} from '../containers/home/home';
-import '../../../common/containers/auth/auth';
+import '../../../music-player-common/containers/auth/auth';
 import './root.scss';
 
 const Login = () => {
