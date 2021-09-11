@@ -14,8 +14,8 @@ on:
 #      - master
 
 jobs:
-  build-test:
-    name: Base test
+  build-portal:
+    name: Music Player Portal Build
 
     runs-on: ubuntu-latest
 
