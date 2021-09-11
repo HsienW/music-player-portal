@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {singleAppGlobalState} from '../../music-player-common/state/single-app-global-state';
-import {globalActiveListener} from '../../music-player-common/listener/global-active-listener';
-import {globalActiveMediator} from '../../music-player-common/mediator/global-active-mediator';
-import {observer, observerKey} from '../../music-player-common/observer';
+import {singleAppGlobalState} from 'music-player-common';
+import {globalActiveListener} from 'music-player-common';
+import {globalActiveMediator} from 'music-player-common';
+import {observer, observerKey} from 'music-player-common';
 import {PortalRootDom} from './root/root';
 import './public-path';
 
@@ -25,10 +25,10 @@ function renderPortalRoot(props) {
 }
 
 function renderSinglePortalRoot(props) {
-    import ('../../music-player-common/containers/loading-spin/loading-spin');
-    import ('../../music-player-common/containers/side-bar/side-bar');
-    import ('../../music-player-common/containers/header-bar/header-bar');
-    import ('../../music-player-common/containers/player-bar/player-bar');
+    import ('music-player-common/src/containers/loading-spin/loading-spin');
+    import ('music-player-common/src/containers/side-bar/side-bar');
+    import ('music-player-common/src/containers/header-bar/header-bar');
+    import ('music-player-common/src/containers/player-bar/player-bar');
     import ('./root/root.scss');
 
     const {container, routerBase, setGlobalState, getGlobalState, onStateChange, observer, observerKey} = props;
