@@ -100,7 +100,7 @@ jobs:
         with:
           args: --exclude '.git*/*' --delete --follow-symlinks
         env:
-          SOURCE_DIR: './portal'
+          SOURCE_DIR: './dist'
           DEST_DIR: 'sub-app/portal'
           AWS_REGION: 'us-east-1'
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET_NAME }}
