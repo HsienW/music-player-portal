@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {getNewReleaseAlbum, getFeaturedPlaylist} from '../../api';
-import {createParamRoute} from '../../../../music-player-common/util';
-import {filteredEmptyImage, authLoginChecker} from '../../../../music-player-common/util';
+import {createParamRoute} from 'music-player-common';
+import {filteredEmptyImage, authLoginChecker} from 'music-player-common';
 import {CardItem} from '../../components';
-import {decorator} from '../../../../music-player-common/decorator/decorator';
+import {decorator} from 'music-player-common';
 import {Divider, Skeleton} from 'antd';
 import './home.scss';
 

@@ -1,11 +1,11 @@
-@import '../../../music-player-common/style/reset';
-@import '../../../music-player-common/style/layout';
-@import '../../../music-player-common/style/variable';
-@import '../../../music-player-common/style/mixin';
+@import '~music-player-common/src/style/reset.css';
+@import '~music-player-common/src/style/layout.scss';
+@import '~music-player-common/src/style/variable.scss';
+@import '~music-player-common/src/style/mixin.scss';
 @import '~antd/dist/antd.css';
 
 
-#portal-root {
+#portal-root-dom {
   padding: $padding-size-s;
 }
 
