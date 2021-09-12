@@ -45,14 +45,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-#      - name: Run the tests and generate coverage report
-#        run: npm run test-coverage
+      #      - name: Run the tests and generate coverage report
+      #        run: npm run test-coverage
 
-#      - name: Upload coverage to Codecov
-#        uses: codecov/codecov-action@v1
-#        if: github.ref == 'refs/heads/production'
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
+      #      - name: Upload coverage to Codecov
+      #        uses: codecov/codecov-action@v1
+      #        if: github.ref == 'refs/heads/production'
+      #        with:
+      #          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v1
@@ -96,7 +96,7 @@ jobs:
 
       - name: Sync AWS S3 bucket
         if: github.ref == 'refs/heads/production'
-        uses: jakejarvis/s3-sync-action@2fb81a9e9fea11e078587911c27754e42e6a6e88
+        uses: jakejarvis/s3-sync-action@master
         with:
           args: --exclude '.git*/*' --delete --follow-symlinks
         env:
